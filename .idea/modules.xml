@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/ConccurentProgramming.iml" filepath="$PROJECT_DIR$/.idea/ConccurentProgramming.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Matrix/Matrix.iml" filepath="$PROJECT_DIR$/Matrix/Matrix.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Thread/ThreadedWindow.iml" filepath="$PROJECT_DIR$/Thread/ThreadedWindow.iml" />
+      <module fileurl="file://$PROJECT_DIR$/graphic/graphic.iml" filepath="$PROJECT_DIR$/graphic/graphic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tests/tests.iml" filepath="$PROJECT_DIR$/tests/tests.iml" />
+    </modules>
+  </component>
+</project>
