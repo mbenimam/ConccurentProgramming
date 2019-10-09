@@ -1,51 +1,56 @@
 package Reservation;
 
+import java.util.Arrays;
+
 public class Salle{
 
   private int m_nbRangs;
   private int m_nbPlacesParRangs;
-  private boolean[][] m_placesLibres;
+  private int[][] m_placesLibres;
 
   Salle(int nbRangs, int nbPlacesParRangs){
     m_nbRangs = nbRangs;
     m_nbPlacesParRangs = nbPlacesParRangs;
-    m_placesLibres = new boolean[m_nbPlacesParRangs][m_nbRangs];
+    m_placesLibres = new int[m_nbRangs][m_nbPlacesParRangs];
   }
-  capaciteOK(int n){
+  boolean capaciteOK(int n){
     int cpt=0;
-    for(boolean[] row: m_placesLibres){
-      for(boolean libre: row){
-        if(libre)cpt++;
+    for(int[] row: m_placesLibres){
+      for(int libre: row){
+        if(libre == 0) {
+        	cpt++;
+        	//System.out.println("cpt = " + cpt);
+            if(cpt >= n)return true;
+        }
       }
     }
+    return false;
   }
-  public int nContiguesAuRangI (int n, int i){
+  public int  nContiguesAuRangI (int n, int i){
 
     int cpt = 0;
     int index = 0;
 
-    for(int j=0; j<m_nbPlacesParRangs; j++]){
-      if(m_placesLibres[i][j]){
+    for(int j=0; j<m_nbPlacesParRangs; j++){
+      if(m_placesLibres[i][j] == 0){
         cpt++;
-      }else{
-        if(cpt >= n){
-          return index;
+        if(cpt >= n) {
+        	return index;
         }
-        index = j;
-        cpt=0
+      }else {
+          index = j;
+          cpt=0;
       }
-      return -1;
     }
-
-    return maxContigu;
+    return -1;
   }
-  public boolean reserverContigues(int n){
+  public boolean reserverContigues(int n, int id){
     int r = -1;
     for(int i=0; i<m_nbRangs; i++){
       r = nContiguesAuRangI(n, i);
-      if(r){
+      if(r != -1){
         for(int j=r; j<r+n; j++){
-          m_placesLibres[i][j] = true;
+          m_placesLibres[i][j] = id;
         }
         return true;
       }
@@ -53,34 +58,39 @@ public class Salle{
     return false;
   }
   // producteur
-  public synchronized boolean reserver(int n){
+  public synchronized boolean reserver(int n, int id){
     if(capaciteOK(n)){
-      if(reserverContigues(n)){
+      if(reserverContigues(n, id)){
+    	    System.out.println(this);
         return true;
       }else{
         int tmp = n;
         for(int i=0; i<m_nbRangs; i++){
           for(int j=0; j<m_nbPlacesParRangs; j++){
-            if(!m_placesLibres[i][j]){
-              m_placesLibres[i][j] = true;
+            if(m_placesLibres[i][j] == 0){
+              m_placesLibres[i][j] = id;
               tmp--;
               if(tmp == 0){
+            	    System.out.println(this);
                 return true;
+                
               }
             }
           }
         }
       }
     }
+    System.out.println(this);
     return false;
   }
 
 
-  @overide
+  @Override
   public String toString(){
-    for(boolean[] row: m_placesLibres){
-        System.out.println(Arrays.toString(row));
-      }
+	String s = ""; 
+    for(int[] row: m_placesLibres){
+        s+=Arrays.toString(row)+"\n";
     }
+	return s;
   }
 }
