@@ -1,6 +1,7 @@
 package Reservation;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class Salle{
 
@@ -44,13 +45,14 @@ public class Salle{
     }
     return -1;
   }
-  public boolean reserverContigues(int n, int id){
+  public boolean reserverContigues(int n, int id, LinkedList<Integer> ar){
     int r = -1;
     for(int i=0; i<m_nbRangs; i++){
       r = nContiguesAuRangI(n, i);
       if(r != -1){
         for(int j=r; j<r+n; j++){
           m_placesLibres[i][j] = id;
+          ar.push(i*m_nbPlacesParRangs+j);
         }
         return true;
       }
@@ -58,30 +60,49 @@ public class Salle{
     return false;
   }
   // producteur
-  public synchronized boolean reserver(int n, int id){
-    if(capaciteOK(n)){
-      if(reserverContigues(n, id)){
-    	    System.out.println(this);
-        return true;
-      }else{
-        int tmp = n;
-        for(int i=0; i<m_nbRangs; i++){
-          for(int j=0; j<m_nbPlacesParRangs; j++){
-            if(m_placesLibres[i][j] == 0){
-              m_placesLibres[i][j] = id;
-              tmp--;
-              if(tmp == 0){
-            	    System.out.println(this);
-                return true;
-                
-              }
-            }
-          }
-        }
-      }
-    }
-    System.out.println(this);
-    return false;
+  public boolean reserver(int n, int id, LinkedList<Integer> ar){
+	  synchronized(this) {
+		System.out.println( id+" is CONSUMER OWNED LOCK");
+	    if(capaciteOK(n)){
+	    	
+	     if(reserverContigues(n, id, ar)){
+	    	    System.out.println(this);
+	    	    return true;
+	      }else{
+	        int tmp = n;
+	        for(int i=0; i<m_nbRangs; i++){
+	          for(int j=0; j<m_nbPlacesParRangs; j++){
+	            if(m_placesLibres[i][j] == 0){
+	              m_placesLibres[i][j] = id;
+	              ar.push(i*m_nbPlacesParRangs+j);
+	              tmp--;
+	              if(tmp == 0){
+	            	    System.out.println(this);
+	            	    notify();
+	                return true;
+	                
+	              }
+	            }
+	          }
+	        }
+	      }
+	    }
+	  }
+	    System.out.println(this);
+		return false;
+	  }
+
+  public  boolean annuler(int n, int id, LinkedList<Integer> ar) {
+	  synchronized(this) {
+		  System.out.println( id+" is PRODUCER OWNED LOCK");
+		  int index;
+		  for(int i=0; i<n; i++) {
+			  index = ar.pop();
+			  m_placesLibres[(int)(index/m_nbPlacesParRangs)][index%m_nbPlacesParRangs] = 0;
+		  }
+		  notify();
+		  return true;
+	  }
   }
 
 
