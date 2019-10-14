@@ -27,12 +27,12 @@ public class Groupe implements Runnable{
   }
   public void run(){
 	  while(m_places.isEmpty()) {
-    m_salle.reserver(m_effectif, m_id, m_places);
-	    try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		  m_salle.reserver(m_effectif, m_id, m_places);
+		  try {
+			  Thread.sleep(1000);
+		  } catch (InterruptedException e) {
+			  // TODO Auto-generated catch block
+			  e.printStackTrace();
 		}
 
 	  }

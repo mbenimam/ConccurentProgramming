@@ -1,12 +1,12 @@
 package Convoyeur;
 
 
-public class Dechargeur impements Runnable{
+public class Dechargeur implements Runnable{
 
   private Chariot m_chariot;
   private AleaStock m_stock;
 
-  public Dechargeur(Chariot chariot, Aleastock stock){
+  public Dechargeur(Chariot chariot, AleaStock stock){
     m_chariot = chariot;
     m_stock = stock;
   }
@@ -15,7 +15,12 @@ public class Dechargeur impements Runnable{
   @Override
   public void run(){
     while(!m_stock.empty()){
-      charger();
+      try {
+		m_chariot.decharger();
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
     }
   }
 }

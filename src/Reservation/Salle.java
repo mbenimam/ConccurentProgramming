@@ -62,7 +62,7 @@ public class Salle{
   // producteur
   public boolean reserver(int n, int id, LinkedList<Integer> ar){
 	  synchronized(this) {
-		System.out.println( id+" is CONSUMER OWNED LOCK");
+		System.out.println( id+" is CONSUMER ,OWNED LOCK");
 	    if(capaciteOK(n)){
 	    	
 	     if(reserverContigues(n, id, ar)){
@@ -94,7 +94,7 @@ public class Salle{
 
   public  boolean annuler(int n, int id, LinkedList<Integer> ar) {
 	  synchronized(this) {
-		  System.out.println( id+" is PRODUCER OWNED LOCK");
+		  System.out.println( id+" is PRODUCER ,OWNED LOCK");
 		  int index;
 		  for(int i=0; i<n; i++) {
 			  index = ar.pop();

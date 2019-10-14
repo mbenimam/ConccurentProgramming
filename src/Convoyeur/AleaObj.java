@@ -1,5 +1,5 @@
 package Convoyeur;
-import java.Math;
+
 
 
 public class AleaObj{
@@ -8,7 +8,7 @@ public class AleaObj{
 
 
   public AleaObj(int min, int max){
-    m_poid = min + (int)(Math.rabdom()) * ((max-min)+1);
+    m_poid = min + (int)(Math.random()) * ((max-min)+1);
   }
 
   public int getPoid(){

@@ -13,14 +13,14 @@ public class AleaStock{
 
   public AleaStock(int taille){
     m_taille = taille;
-    stock = new ArrayList<AleaObj>(m_taille) stock;
+    stock = new ArrayList<AleaObj>(m_taille);
   }
   public void addAlea(int min, int max){
     stock.add(new AleaObj(min, max));
   }
 
   public boolean empty(){
-    return stock.isEmty();
+    return stock.isEmpty();
   }
 
   
