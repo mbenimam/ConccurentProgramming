@@ -3,24 +3,34 @@ package Convoyeur;
 
 public class Chargeur implements Runnable{
 
+
+  // le chariot a charger
   private Chariot m_chariot;
+
+  // le stock
   private AleaStock m_stock;
 
+
+
+  // initialisation
   public Chargeur(Chariot chariot, AleaStock stock){
     m_chariot = chariot;
     m_stock = stock;
   }
 
 
-  @Override
   public void run(){
+    AleaObj tmp;
+    // tant que le stock n'est pas vide
     while(!m_stock.empty()){
       try {
-		m_chariot.charger();
-	} catch (InterruptedException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+          tmp = m_stock.retirer()
+          // on essaie de charger le chariot
+	        m_chariot.charger(tmp);
+
+	    } catch (InterruptedException e) {
+		      e.printStackTrace();
+	    }
     }
   }
 }
