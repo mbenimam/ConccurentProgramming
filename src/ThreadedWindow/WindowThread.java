@@ -1,5 +1,4 @@
 package ThreadedWindow;
-import graphic.*;
 import graphic.Window;
 
 import java.awt.*;
