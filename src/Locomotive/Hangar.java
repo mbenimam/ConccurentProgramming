@@ -16,6 +16,6 @@ public class Hangar {
   }
 
   public boolean isEmpty() {
-    return occupied;
+    return !occupied;
   }
 }

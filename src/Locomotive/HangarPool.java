@@ -15,13 +15,13 @@ public class HangarPool {
   }
 
   public Hangar getHangar(int num) {
-    return pool.get(num);
+    return pool.get(num - 1);
   }
 
-  public int HangarVide() {
+  public int hangarVide() {
     for (int i = 0; i < pool.size(); i++) {
       if (pool.get(i).isEmpty())
-        return i;
+        return i + 1;
     }
     return -1;
   }
