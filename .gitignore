@@ -1,1 +1,16 @@
-.class  
+# Build output
+target/
+out/
+*.class
+
+# Generated knowledge graph (local analysis, not source)
+graphify-out/
+
+# IDE and OS metadata
+.idea/
+.vscode/
+*.iml
+.classpath
+.project
+.settings/
+.DS_Store
