@@ -2,7 +2,7 @@
 
 Four small systems that show how threads cooperate through locks, conditions and joins. Each one models a real situation (trains sharing a turntable, a conveyor loading a truck, a room being booked by several groups, a matrix split across workers), and each has a runnable demo and automated tests.
 
-[![build](https://github.com/mbeni12333/ConccurentProgramming/actions/workflows/build.yml/badge.svg)](https://github.com/mbeni12333/ConccurentProgramming/actions/workflows/build.yml)
+[![build](https://github.com/mbenimam/concurrent-programming-java/actions/workflows/build.yml/badge.svg)](https://github.com/mbenimam/concurrent-programming-java/actions/workflows/build.yml)
 ![Java 25](https://img.shields.io/badge/Java-25-orange)
 ![JUnit 6](https://img.shields.io/badge/tests-JUnit%206-brightgreen)
 
