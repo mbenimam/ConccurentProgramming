@@ -13,7 +13,7 @@ Four small systems, each built to show one idea from concurrent programming: thr
 
 One turntable serves a hangar pool. Only one locomotive may use the turntable at a time.
 
-![A locomotive's trip: the turntable turns, the loco follows](docs/assets/diagrams/turntable-trip.png)
+![One locomotive's trip through the turntable, in five frames](docs/assets/diagrams/turntable-trip.png)
 
 The turntable is a server thread. Each locomotive thread drives it through a sequence of conditions: `appeler`, `attendrePositionOk`, `entrer`, `sortir`. The entry track is a separate `ReentrantLock`, so a second locomotive cannot start its approach until the first has cleared the entry.
 
@@ -21,7 +21,7 @@ The turntable is a server thread. Each locomotive thread drives it through a seq
 
 A stock of random-weight items is loaded onto one chariot and unloaded again.
 
-![A chariot filling up to its 30 kg limit, with a refused item](docs/assets/diagrams/conveyor-weight.png)
+![The chariot filling to 30 kg, refusing an item, then unloading](docs/assets/diagrams/conveyor-weight.png)
 
 `Chariot` owns one `ReentrantLock` and two conditions. Loaders wait on `empty`, unloaders wait on `full`. An item that would break the weight or count limit is refused and goes back to the stock.
 
@@ -29,11 +29,13 @@ A stock of random-weight items is loaded onto one chariot and unloaded again.
 
 `Salle` is a grid of seats. A group asks for `n` seats, and the room tries a contiguous run in one row first, then falls back to scattered free seats.
 
-![Why the seat fix matters: old pair vs fixed pair](docs/assets/diagrams/seat-overlap.png)
+![Booking two seats next to a taken seat: old code vs fixed code](docs/assets/diagrams/seat-overlap.png)
 
 The first version of `nContiguesAuRangI` returned the index of the last taken seat instead of the first free one, so a group could be given a seat that was already booked. A regression test now covers this case (`SalleTest.contiguousSearchDoesNotReuseAnOccupiedSeat`).
 
 ## Matrix product
+
+![One thread per cell: the thread costs more than the arithmetic](docs/assets/diagrams/matrix-threads.png)
 
 `Matrix2d.dot` is the sequential product. `MatrixDemo` also starts one thread per output cell and joins them all, then checks the parallel result against the sequential one.
 
