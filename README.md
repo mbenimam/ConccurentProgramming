@@ -46,6 +46,8 @@ Classes: `Reservation.Salle` (the room and its allocation logic), `Groupe` (a gr
 
 `Matrix2d.dot` computes a matrix product sequentially. `MatrixDemo` computes the same product with one thread per output cell, joins all the threads, and checks the result against the sequential one. It also reports both timings, so you can see what splitting work costs.
 
+![Matrix product: each cell of C is a row of A times a column of B](docs/assets/diagrams/matrix-product.png)
+
 ![One thread per cell: the thread costs more than the arithmetic](docs/assets/diagrams/matrix-threads.png)
 
 On the demo's 100×1000 by 1000×100 product, the sequential version takes about 23 ms and the one-thread-per-cell version about 2.3 s. Each cell is a 1000-term sum (about 2 µs of arithmetic), so the cost of creating and joining 10,000 threads dominates. Splitting the rows across a few threads is the usual fix; the demo keeps the naive version so the cost is visible.
